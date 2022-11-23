@@ -1,0 +1,52 @@
+<br />
+
+<div *ngIf="forecast$ | async as forecast" class="container">
+  <p>
+    Displaying the next 5 days weather forecast. Please click the date tab to
+    see the selected forecast.
+  </p>
+
+  <ul class="nav nav-tabs">
+    <li *ngFor="let dt of keys; index as i">
+      <a data-toggle="tab" href="#menu{{ i }}">{{ dt }}</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div
+      *ngFor="let dt of keys; index as i"
+      id="menu{{ i }}"
+      class="tab-pane"
+      [ngClass]="{
+        'fade in active': i === 0
+      }"
+    >
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Temp</th>
+            <th>weather Condition</th>
+            <th>Wind</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of forecast[dt]">
+            <td>{{ obj.dt_txt | date: "shortTime" }}</td>
+            <td>{{ obj.main.temp_min }}&deg;C</td>
+            <td>
+              {{ obj.weather[0].main + ", " + obj.weather[0].description }}
+              <img
+                src="https://openweathermap.org/img/wn/{{
+                  obj.weather[0].icon
+                }}.png"
+                alt=""
+              />
+            </td>
+            <td>{{ obj.wind.speed + ", " + obj.wind.gust }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

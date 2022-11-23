@@ -4,9 +4,7 @@ import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
     }).compileComponents();
   }));
 
@@ -16,16 +14,19 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'WeatherApiTest'`, () => {
+  it(`should have as title 'Netwest - Weather Api Test'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('WeatherApiTest');
+    expect(app.title).toEqual('Netwest - Weather Api Test');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('WeatherApiTest app is running!');
+    console.log(compiled);
+    expect(compiled.querySelector('.navbar-brand').textContent).toContain(
+      'Netwest - Weather Api Test'
+    );
   });
 });
