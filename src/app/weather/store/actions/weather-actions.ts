@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { WeatherModel } from '../../models/weather.models';
 
 export const LOAD_FORECAST = '[Weather Page] Load Forecast';
 export const LOAD_FORECAST_SUCCESS = '[Weather Page] Load Forecast Success';
@@ -11,7 +12,7 @@ export class LoadForecast implements Action {
 
 export class LoadForecastSuccess implements Action {
   public readonly type = LOAD_FORECAST_SUCCESS;
-  constructor(public readonly forecast: any) {}
+  constructor(public readonly weather: WeatherModel) {}
 }
 
 export class LoadForecastFailure implements Action {

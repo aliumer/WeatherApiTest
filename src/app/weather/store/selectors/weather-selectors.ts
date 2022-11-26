@@ -13,6 +13,6 @@ export const getForecast = createSelector(
 export const getForecastError = createSelector(
   getWeatherFeatureState,
   (state: WeatherState) => {
-    return state?.hasOwnProperty('error') ? state.error : '';
+    return !!state ? state.error : null;
   }
 );

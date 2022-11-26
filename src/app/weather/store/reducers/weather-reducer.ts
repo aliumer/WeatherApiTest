@@ -1,26 +1,25 @@
+import { ForecastModel } from '../../models/weather.models';
 import * as fromActions from '../actions/weather-actions';
 
 export interface WeatherState {
-  city: string | null;
-  forecast: any;
-  error: string | null;
+  forecast: ForecastModel;
+  error: string;
 }
 
 export const initialState: WeatherState = {
-  city: null,
   forecast: null,
   error: null,
 };
 
-const groupByDate = (data) => {
-  const groupByDate = data.list.reduce((group, forecast) => {
-    forecast.Id = new Date(forecast.dt_txt).toDateString();
-    const { Id } = forecast;
+const getForecastByDate = (weather): ForecastModel => {
+  const forecastByDate = weather.list.reduce((group, listItem) => {
+    listItem.Id = new Date(listItem.dt_txt).toDateString();
+    const { Id } = listItem;
     group[Id] = group[Id] ?? [];
-    group[Id].push(forecast);
+    group[Id].push(listItem);
     return group;
   }, {});
-  return groupByDate;
+  return { city: weather.city, forecast: forecastByDate };
 };
 
 export function WeatherReducer(
@@ -31,8 +30,7 @@ export function WeatherReducer(
     case fromActions.LOAD_FORECAST_SUCCESS:
       return {
         ...currentState,
-        city: action.forecast.city.name,
-        forecast: groupByDate(action.forecast),
+        forecast: getForecastByDate(action.weather),
         error: null,
       };
     case fromActions.LOAD_FORECAST_FAILURE:
@@ -44,8 +42,6 @@ export function WeatherReducer(
     case fromActions.LOAD_FORECAST:
       return {
         ...currentState,
-        city: action.city,
-        forecast: null,
       };
   }
 }

@@ -1,6 +1,9 @@
 <br />
 
 <div *ngIf="forecast$ | async as forecast" class="container">
+  <h3>
+    {{ forecast.city.name }}
+  </h3>
   <p>
     Displaying the next 5 days weather forecast. Please click the date tab to
     see the selected forecast.
@@ -42,7 +45,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let obj of forecast[dt]">
+          <tr *ngFor="let obj of forecast.forecast[dt]">
             <td>{{ obj.dt_txt | date: "shortTime" }}</td>
             <td>{{ obj.main.temp_min }}&deg;C</td>
             <td>

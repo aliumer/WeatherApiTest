@@ -9,17 +9,23 @@ import * as fromActions from '../actions/weather-actions';
 import { hot, cold } from 'jasmine-marbles';
 import { of, throwError } from 'rxjs';
 
+const city = {
+  id: '2633709',
+  name: 'Leeds',
+  country: 'GB',
+  population: 103932,
+};
 const mockData = {
-  city: {
-    id: 2633709,
-    name: 'Leeds',
-    country: 'GB',
-    population: 103932,
-  },
+  city: city,
   cod: '',
   message: 0,
   cnt: 0,
   list: [],
+};
+
+const mockDataSuccess = {
+  city: city,
+  forecast: [],
 };
 
 describe('WeatherEffects', () => {
@@ -49,11 +55,11 @@ describe('WeatherEffects', () => {
     it('should return weather forecast of Leeds', () => {
       weatherServiceMock.getWeatherByCity.and.returnValue(of(mockData));
       const action = new fromActions.LoadForecast('Leeds');
-      const completion = new fromActions.LoadForecastSuccess(mockData);
+      const completion = new fromActions.LoadForecastSuccess(mockDataSuccess);
       actions$ = hot('-a|', { a: action });
-      const expected = cold('b|', { b: completion });
+      const expected = cold('-b|', { b: completion });
       expected.subscribe((data) => {
-        expect(data.forecast.city.name).toBe('Leeds');
+        expect(data.weather.city.name).toBe('Leeds');
       });
     });
   });

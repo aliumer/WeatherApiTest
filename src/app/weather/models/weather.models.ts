@@ -1,9 +1,6 @@
 export interface ForecastModel {
   forecast: { [index: string]: WeatherListModel[] };
   city: CityModel;
-  cnt: number;
-  cod: string;
-  message: number;
 }
 
 export interface WeatherModel {
