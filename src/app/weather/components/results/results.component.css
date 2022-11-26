@@ -1,0 +1,14 @@
+.active {
+  border-bottom: 2px solid black;
+}
+
+.nav-link {
+  font-weight: bold;
+  background-color: grey;
+  color: #fff;
+}
+.nav-link:hover {
+  border-bottom: 2px solid black;
+  background-color: lightgrey;
+  color: #fff;
+}

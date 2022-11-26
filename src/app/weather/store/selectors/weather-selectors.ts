@@ -6,7 +6,7 @@ const getWeatherFeatureState = createFeatureSelector<WeatherState>('weather');
 export const getForecast = createSelector(
   getWeatherFeatureState,
   (state: WeatherState) => {
-    return state?.hasOwnProperty('forecast') ? state.forecast : '';
+    return !!state ? state.forecast : null;
   }
 );
 

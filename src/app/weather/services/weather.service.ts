@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { WeatherModel } from '../models/weather.models';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class WeatherService {
 
   constructor(private http: HttpClient) {}
 
-  getWeatherByCity(city: string): Observable<any> {
+  getWeatherByCity(city: string): Observable<WeatherModel> {
     const params = new HttpParams()
       .set('q', city)
       .set('units', 'metric')
