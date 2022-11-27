@@ -21,6 +21,12 @@ export class SearchComponent implements OnInit {
   constructor(private store: Store<WeatherState>) {}
 
   search() {
-    this.store.dispatch(new fromActions.LoadForecast(this.city));
+    if (!!this.city) {
+      this.store.dispatch(new fromActions.LoadForecast(this.city));
+    } else {
+      this.store.dispatch(
+        new fromActions.LoadForecastFailure('City name is required')
+      );
+    }
   }
 }
